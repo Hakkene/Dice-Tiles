@@ -58,7 +58,7 @@ function TitleScreen() {
     "opis gry afsdddadfa asdf as dfa asdf asdf asdfasd fggdghgs asfs dfdsafdas fdasf das faf das fas as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf";
 
   const images = [
-    "/assets/mr2_AI_purple.jp",
+    "/assets/mr2_AI_purple.jpg",
     "/assets/mr2_AI_red.png",
     "/assets/ionia.jpg",
     "/assets/mr2_AI_purple.jpg",
