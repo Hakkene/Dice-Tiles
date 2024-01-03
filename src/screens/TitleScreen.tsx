@@ -2,8 +2,9 @@ import CommentSection from "../components/TitleComponents/CommentSection";
 import Description from "../components/TitleComponents/Description";
 import ImageGallery from "../components/TitleComponents/ImageGallery";
 import Recomendations from "../components/TitleComponents/Recomendations";
+import { useEffect, useState } from "react";
 
-function TitleScreen() {
+const TitleScreen = () => {
   const sampleComments = [
     {
       userIcon: "url-to-user-icon1.jpg",
@@ -12,50 +13,12 @@ function TitleScreen() {
       liked: true,
     },
     {
-      userIcon: "/assets/ionia.jpg",
-      userName: "User1",
-      commentText:
-        "This is dddddddd ddddddd ddddddddddddddd dddddddddddddd dddddddasddf ffffffffdddddd dddddddddddd dddddddasddffffff fffddddddddddd dddddddddddddd asddffffffff fddddddddddddddddd ddddddddasddfffffffffdddddddddd  dddddd dddddddddasddfffffffffddddddd ddddddddddd ddddd ddasddf ffffffffddddd ddddd dddd ddddd ddddddasddffff fffffdddddddddd dddddddddddddddasd dffffff  fffdddddd  ddddddd ddddddddd ddasddffff fffffdddd dddddddd dddddddddd dddasddf ffffffffddddddddd ddddddddddddddd dasddfffffffffdddddddddddd ddddddddddddda ddfffffffffd dddddd dddasddffffffffff fffffa great comment!",
-      liked: true,
-    },
-    {
-      userIcon: "/assets/mr2_AI_red.png",
-      userName: "User1",
-      commentText:
-        "This is dddddddd ddddddd ddddddddddddddd dddddddddddddd dddddddasddf ffffffffdddddd dddddddddddd dddddddasddffffff fffddddddddddd dddddddddddddd asddffffffff fddddddddddddddddd ddddddddasddfffffffffdddddddddd  dddddd dddddddddasddfffffffffddddddd ddddddddddd ddddd ddasddf ffffffffddddd ddddd dddd ddddd ddddddasddffff fffffdddddddddd dddddddddddddddasd dffffff  fffdddddd  ddddddd ddddddddd ddasddffff fffffdddd dddddddd dddddddddd dddasddf ffffffffddddddddd ddddddddddddddd dasddfffffffffdddddddddddd ddddddddddddda ddfffffffffd dddddd dddasddffffffffff fffffa great comment!",
-      liked: true,
-    },
-    {
-      userIcon: "/assets/mr2_AI_red.png",
-      userName: "User1",
-      commentText:
-        "This is dddddddd ddddddd ddddddddddddddd dddddddddddddd dddddddasddf ffffffffdddddd dddddddddddd dddddddasddffffff fffddddddddddd dddddddddddddd asddffffffff fddddddddddddddddd ddddddddasddfffffffffdddddddddd  dddddd dddddddddasddfffffffffddddddd ddddddddddd ddddd ddasddf ffffffffddddd ddddd dddd ddddd ddddddasddffff fffffdddddddddd dddddddddddddddasd dffffff  fffdddddd  ddddddd ddddddddd ddasddffff fffffdddd dddddddd dddddddddd dddasddf ffffffffddddddddd ddddddddddddddd dasddfffffffffdddddddddddd ddddddddddddda ddfffffffffd dddddd dddasddffffffffff fffffa great comment!",
-      liked: true,
-    },
-    {
       userIcon: "url-to-user-icon1.jpg",
       userName: "User1",
-      commentText:
-        "This is dddddddd ddddddd ddddddddddddddd dddddddddddddd dddddddasddf ffffffffdddddd dddddddddddd dddddddasddffffff fffddddddddddd dddddddddddddd asddffffffff fddddddddddddddddd ddddddddasddfffffffffdddddddddd  dddddd dddddddddasddfffffffffddddddd ddddddddddd ddddd ddasddf ffffffffddddd ddddd dddd ddddd ddddddasddffff fffffdddddddddd dddddddddddddddasd dffffff  fffdddddd  ddddddd ddddddddd ddasddffff fffffdddd dddddddd dddddddddd dddasddf ffffffffddddddddd ddddddddddddddd dasddfffffffffdddddddddddd ddddddddddddda ddfffffffffd dddddd dddasddffffffffff fffffa great comment!",
+      commentText: "This is !",
       liked: true,
-    },
-
-    {
-      userIcon: "/assets/ionia.jpg",
-      userName: "User1",
-      commentText: "This is a great comment!",
-      liked: true,
-    },
-    {
-      userIcon: "/assets/ionia.jpg",
-      userName: "User2",
-      commentText: "I disagree with the previous comment.",
-      liked: false,
     },
   ];
-
-  const sampleDescryption =
-    "opis gry afsdddadfa asdf as dfa asdf asdf asdfasd fggdghgs asfs dfdsafdas fdasf das faf das fas as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf as dfa asdf asdf";
 
   const images = [
     "/assets/mr2_AI_purple.jpg",
@@ -67,8 +30,29 @@ function TitleScreen() {
     "/assets/mr2_AI_purple.jpg",
     "/assets/mr2_AI_red.png",
   ];
-  const producer = "PawilonGames";
+
+  const producer = "Producent";
   const rating = 98;
+
+  const [fetchedProducts, setFetchedProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/fetchedproducts/?name=Pandemic Legacy: Season 1"
+        );
+        const data = await response.json();
+        setFetchedProducts(data);
+        console.log("Dane z API:", data);
+      } catch (error) {
+        console.error("Błąd pobierania danych:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleRecommendatiClick = (item: string) => {
     console.log(item);
   };
@@ -76,15 +60,21 @@ function TitleScreen() {
     <>
       <div className="w-3/5 mx-auto flex flex-col justify-center">
         <div>
-          <ImageGallery
-            title="Nazwa gry"
-            images={images}
-            producer={producer}
-            rating={rating}
-          />
+          {fetchedProducts.map((product) => (
+            <ImageGallery
+              title={product.name}
+              image_url={product.image_url}
+              description={product.description}
+              images={images}
+              producer={producer}
+              rating={rating}
+            />
+          ))}
         </div>
         <div>
-          <Description text={sampleDescryption} />
+          {fetchedProducts.map((product) => (
+            <Description description={product.description} />
+          ))}
         </div>
         <div>
           <Recomendations
@@ -98,6 +88,6 @@ function TitleScreen() {
       </div>
     </>
   );
-}
+};
 
 export default TitleScreen;

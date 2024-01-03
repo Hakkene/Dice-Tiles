@@ -1,12 +1,12 @@
 interface Props {
-  text: string;
+  description: string;
 }
 
-const Description = ({ text }: Props) => {
+const Description = ({ description }: Props) => {
   return (
     <div className="mb-5">
       <h3 className="m-4 text-2xl font-bold">Description</h3>
-      <p className="description-text">{text}</p>
+      <p className="description-text">{description}</p>
     </div>
   );
 };
