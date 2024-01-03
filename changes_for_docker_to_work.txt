@@ -1,0 +1,14 @@
+docker-compose.yml - dodać to :
+
+services:
+    react_app:
+        build: ./react-app
+        container_name: react_app_c
+        ports:
+          - '3000:3000'
+
+
+
+requirements.txt - dodać to:
+
+django-cors-headers==4.3.1
