@@ -1,27 +1,47 @@
+import { useEffect, useState } from "react";
 import Comment from "./Comment";
 
-interface Props {
-  comments: Array<{
-    userIcon: string;
-    userName: string;
-    commentText: string;
-    liked: boolean;
-  }>;
+interface CommentProps {
+  id: string;
 }
 
-const CommentSection = ({ comments }: Props) => {
+interface CommentData {
+  id: number;
+  title: string;
+  body: string;
+  created_on: Date;
+  owner: string;
+}
+
+const CommentSection = ({ id }: CommentProps) => {
+  const [comments, setComments] = useState<CommentData[]>([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/comment/${id}/`
+        );
+        const data = await response.json();
+        setComments(data.results || []);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, [id]);
+
   return (
     <div className="mb-4">
       <h2 className="m-4 text-2xl font-bold">Comments</h2>
       <ul className="comoverflow-y-auto gap-1">
-        {comments.map((comment, index) => (
-          <li>
+        {comments.map((comment) => (
+          <li key={comment.id}>
             <Comment
-              key={index}
-              userIcon={comment.userIcon}
-              userName={comment.userName}
-              comment={comment.commentText}
-              liked={comment.liked}
+              owner={comment.owner}
+              body={comment.body}
+              created_on={comment.created_on}
             />
           </li>
         ))}

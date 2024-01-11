@@ -17,7 +17,7 @@ function App() {
           </div>
           <Routes>
             <Route path="/" element={<MainScreen />} />
-            <Route path="/title/:gameName" element={<TitleScreen />} />
+            <Route path="/title/:slug" element={<TitleScreen />} />
             <Route path="/login" element={<LogInScreen />} />
             <Route path="/signup" element={<SignUpScreen />} />
             <Route path="/gamelist" element={<GameListScreen />} />

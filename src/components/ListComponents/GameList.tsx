@@ -5,6 +5,7 @@ interface GameListProps {
     title: string;
     thumbnail_url: string;
     description: string;
+    slug: string;
   }>;
 }
 

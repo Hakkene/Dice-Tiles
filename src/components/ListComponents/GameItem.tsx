@@ -5,18 +5,20 @@ interface GameItemProps {
   title: string;
   description: string;
   thumbnail_url: string;
+  slug: string;
 }
 
 const GameItem: React.FC<GameItemProps> = ({
   title,
   description,
   thumbnail_url,
+  slug,
 }) => {
   console.log("Dane w komponencie gameitem:", title);
 
   return (
     <div className="game-item border rounded-md p-2 flex items-center">
-      <Link to={`/title/${encodeURIComponent(title)}`}>
+      <Link to={`/title/${encodeURIComponent(slug)}`}>
         <img
           src={thumbnail_url}
           alt="Game"

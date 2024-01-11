@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState("");
@@ -17,14 +18,39 @@ const SignUpScreen = () => {
     setPassword(e.target.value);
   };
 
-  const handleSignUp = () => {
-    // Logika rejestracji (do zaimplementowania)
-    console.log("Signing up with:", username, email, password);
+  const handleSignUp = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/register/", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password,
+        }),
+      });
+
+      console.log("Response:", response);
+
+      if (response.ok) {
+        console.log("User successfully registered");
+        <Link to={`/login`}></Link>;
+      } else {
+        const errorData = await response.json();
+        console.error("Registration failed:", errorData);
+        // Handle registration failure
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
     <div className="flex justify-center mt-20">
-      <div className="w-1/5 flex flex-col ">
+      <div className="w-1/5 flex flex-col">
         <label className="ml-4 text-sm font-medium text-gray-700">
           Username
         </label>
@@ -60,7 +86,6 @@ const SignUpScreen = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-
         <button
           className="bg-blue-500 text-white p-2 rounded-md mt-10"
           onClick={handleSignUp}
