@@ -2,13 +2,22 @@ import { useState } from "react";
 
 interface Props {
   title: string;
+  image_url: string;
+  description: string;
   images: string[];
   producer: string;
   rating: number;
 }
 
-const ImageGallery = ({ title, images, producer, rating }: Props) => {
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+const ImageGallery = ({
+  title,
+  description,
+  image_url,
+  images,
+  producer,
+  rating,
+}: Props) => {
+  const [selectedImage, setSelectedImage] = useState(image_url);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -27,36 +36,7 @@ const ImageGallery = ({ title, images, producer, rating }: Props) => {
         />
       </div>
       <div className="col-span-2 pl-4 h-96 overflow-hidden">
-        <p>
-          opis gry dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds fadsf a
-          fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas fasd fasdf
-          dsf as opis gry dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds
-          fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas
-          fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd asd as df asd f a
-          dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf
-          asdfas fas fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd asd as df
-          asd f a dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa
-          asf asdfas fas fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd asd as
-          df asd f a dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf
-          dsa asf asdfas fas fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd
-          asd as df asd f a dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd
-          fdasfasdfsf dsa asf asdfas fas fasd fasdf dsf asopis gry dfdsafdasasdf
-          ads fasd asd as df asd f a dsfdsafds fadsf a fasdffa sdf asdfas fdas
-          fasd fdasfasdfsf dsa asf asdfas fas fasd fasdf dsf asopis gry
-          dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds fadsf a fasdffa sdf
-          asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas fasd fasdf dsf asopis
-          gry dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds fadsf a fasdffa
-          sdf asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas fasd fasdf dsf
-          asopis gry dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds fadsf a
-          fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas fasd fasdf
-          dsf asopis gry dfdsafdasasdf ads fasd asd as df asd f a dsfdsafds
-          fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf asdfas fas
-          fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd asd as df asd f a
-          dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa asf
-          asdfas fas fasd fasdf dsf asopis gry dfdsafdasasdf ads fasd asd as df
-          asd f a dsfdsafds fadsf a fasdffa sdf asdfas fdas fasd fdasfasdfsf dsa
-          asf asdfas fas fasd fasdf dsf as
-        </p>
+        <p>{description}</p>
       </div>
       <ul className="col-span-3 overflow-x-auto flex flex-row gap-1 justify-">
         {images.map((image, index) => (
