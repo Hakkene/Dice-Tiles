@@ -5,8 +5,10 @@ interface Props {
   image_url: string;
   description: string;
   images: string[];
-  producer: string;
-  rating: number;
+  upvotes: number;
+  downvotes: number;
+  min_players: number;
+  max_players: number;
 }
 
 const ImageGallery = ({
@@ -14,8 +16,10 @@ const ImageGallery = ({
   description,
   image_url,
   images,
-  producer,
-  rating,
+  upvotes,
+  downvotes,
+  min_players,
+  max_players,
 }: Props) => {
   const [selectedImage, setSelectedImage] = useState(image_url);
 
@@ -54,8 +58,12 @@ const ImageGallery = ({
         ))}
       </ul>
       <div className="col-span-2 pl-4 justify-center flex flex-col">
-        <p>Producer: {producer}</p>
-        <p>Rating: {rating}</p>
+        <p>
+          Up votes {upvotes} / {downvotes} Down votes
+        </p>
+        <p>
+          Players: {min_players} / {max_players}
+        </p>
       </div>
     </div>
   );
