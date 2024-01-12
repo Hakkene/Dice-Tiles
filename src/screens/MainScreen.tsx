@@ -10,7 +10,7 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchDataNew = async () => {
       try {
-        const response = await fetch('http://152.67.138.40/api/products/?page=${currentPage}&sort_by=id_desc');
+        const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=id_desc`);
         const data = await response.json();
         setFetchedProductsNew(data);
         console.log("Dane z API:", data);
@@ -18,9 +18,10 @@ const MainScreen = () => {
         console.error("Błąd pobierania danych:", error);
       }
     };
+  
     const fetchDataHot = async () => {
       try {
-        const response = await fetch('http://152.67.138.40/api/products/?page=${currentPage}&sort_by=upvotes');
+        const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=upvotes`);
         const data = await response.json();
         setFetchedProductsHot(data);
         console.log("Dane z API:", data);
@@ -28,7 +29,7 @@ const MainScreen = () => {
         console.error("Błąd pobierania danych:", error);
       }
     };
-
+  
     fetchDataNew();
     fetchDataHot();
   }, [currentPage]);
