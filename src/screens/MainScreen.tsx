@@ -8,7 +8,7 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/fetchedproducts/");
+        const response = await fetch("http://152.67.138.40/fetchedproducts/");
         const data = await response.json();
         setFetchedProducts(data);
         console.log("Dane z API:", data);
