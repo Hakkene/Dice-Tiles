@@ -64,8 +64,9 @@ const MainScreen = () => {
             description: product.description,
           }))}
         />
+        <button onClick={loadMore}>Load More</button>
       </div>
-      <button onClick={loadMore}>Load More</button>
+      
     </div>
   );
 };
