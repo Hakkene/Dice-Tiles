@@ -12,7 +12,9 @@ const MainScreen = () => {
       try {
         const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=id_desc`);
         const data = await response.json();
-        setFetchedProductsNew(data);
+        const products = data.results || [];
+        setFetchedProductsNew((prevProducts) => [...prevProducts, ...products]);
+        // setFetchedProductsNew(data);
         console.log("Dane z API:", data);
       } catch (error) {
         console.error("Błąd pobierania danych:", error);
@@ -23,7 +25,9 @@ const MainScreen = () => {
       try {
         const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=upvotes`);
         const data = await response.json();
-        setFetchedProductsHot(data);
+        const products = data.results || [];
+        setFetchedProductsHot((prevProducts) => [...prevProducts, ...products]);
+        // setFetchedProductsHot(data);
         console.log("Dane z API:", data);
       } catch (error) {
         console.error("Błąd pobierania danych:", error);
