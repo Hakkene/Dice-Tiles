@@ -50,7 +50,7 @@ const MainScreen = () => {
         <GameList
           games={fetchedProductsNew.map((product) => ({
             title: product.name,
-            thumbnail_url: product.thumbnail_url,
+            thumbnail_url: product.thumbnail,
             description: product.description,
           }))}
         />
@@ -60,7 +60,7 @@ const MainScreen = () => {
         <GameList
           games={fetchedProductsHot.map((product) => ({
             title: product.title,
-            thumbnail_url: product.thumbnail_url,
+            thumbnail_url: product.thumbnail,
             description: product.description,
           }))}
         />
