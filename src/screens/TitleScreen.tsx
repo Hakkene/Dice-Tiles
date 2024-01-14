@@ -62,7 +62,6 @@ const TitleScreen = () => {
         recommendations={images}
         onRecommendationClick={handleRecommendationClick}
       />
-      <CommentSection comments={product.id} />
     </div>
   );
 };
