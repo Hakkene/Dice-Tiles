@@ -9,7 +9,7 @@ const GameListScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://localhost:3001/api/products/?page=${currentPage}&page_size=10`;
+        const url = `http://152.67.138.40/api/products/?page=${currentPage}&page_size=10`;
         const response = await fetch(url);
         const data = await response.json();
 

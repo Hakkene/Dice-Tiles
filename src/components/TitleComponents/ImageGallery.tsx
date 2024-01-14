@@ -61,10 +61,18 @@ const ImageGallery = ({
         <p>
           Up votes &#x1F44D; {upvotes} / {downvotes} &#x1F44E; Down votes
         </p>
-        <p>
-          <br />
-          Players: {min_players} / {max_players}
-        </p>
+
+        {min_players === max_players ? (
+          <p>
+            <br />
+            For {min_players} players
+          </p>
+        ) : (
+          <p>
+            <br />
+            From {min_players} to {max_players} players
+          </p>
+        )}
       </div>
     </div>
   );

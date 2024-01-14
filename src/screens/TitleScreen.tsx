@@ -15,7 +15,7 @@ const TitleScreen = () => {
       try {
         if (slug) {
           const response = await fetch(
-            `http://localhost:3001/api/products/${encodeURIComponent(slug)}/`
+            `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`
           );
           const data = await response.json();
           setproduct(data || null);
