@@ -23,15 +23,15 @@ const TitleScreen = () => {
     },
   ];
 
-  const producer = "Producent";
-  const rating = 98;
+  //const producer = "Producent";
+  //const rating = 98;
 
   const [fetchedProducts, setFetchedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/products/");
+        const response = await fetch("http://152.67.138.40/api/products/");
         const data = await response.json();
         setFetchedProducts(data.results || []);
         console.log("Dane z API:", data);
