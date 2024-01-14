@@ -1,27 +1,50 @@
+import { useEffect, useState } from "react";
 import Comment from "./Comment";
 
-interface Props {
-  comments: Array<{
-    userIcon: string;
-    userName: string;
-    commentText: string;
-    liked: boolean;
-  }>;
+interface CommentProps {
+  product: number;
 }
 
-const CommentSection = ({ comments }: Props) => {
+interface CommentData {
+  product: number;
+  body: string;
+  created_on: Date;
+  owner: string;
+}
+
+const CommentSection = ({ product }: CommentProps) => {
+  const [comments, setComments] = useState<CommentData[]>([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(
+          `http://152.67.138.40/api/comment/?product=${product}`
+        );
+        const data = await response.json();
+
+        const filteredComments = data.results.filter(
+          (comment: CommentData) => comment.product === product
+        );
+        setComments(filteredComments || []);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, [product]);
+
   return (
     <div className="mb-4">
       <h2 className="m-4 text-2xl font-bold">Comments</h2>
       <ul className="comoverflow-y-auto gap-1">
-        {comments.map((comment, index) => (
-          <li>
+        {comments.map((comment) => (
+          <li key={comment.product}>
             <Comment
-              key={index}
-              userIcon={comment.userIcon}
-              userName={comment.userName}
-              comment={comment.commentText}
-              liked={comment.liked}
+              owner={comment.owner}
+              body={comment.body}
+              created_on={comment.created_on}
             />
           </li>
         ))}

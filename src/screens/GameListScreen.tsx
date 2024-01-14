@@ -37,6 +37,7 @@ const GameListScreen = () => {
           title: product.name,
           thumbnail_url: product.thumbnail,
           description: product.description,
+          slug: product.slug,
         }))}
       />
       <button onClick={loadMore}>Load More</button>

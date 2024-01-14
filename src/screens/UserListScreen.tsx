@@ -1,5 +1,4 @@
 import GameList from "../components/ListComponents/GameList";
-
 import { useEffect, useState } from "react";
 
 const UserListScreen = () => {

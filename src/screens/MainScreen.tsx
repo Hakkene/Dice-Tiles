@@ -5,68 +5,89 @@ import { useEffect, useState } from "react";
 const MainScreen = () => {
   const [fetchedProductsNew, setFetchedProductsNew] = useState<any[]>([]);
   const [fetchedProductsHot, setFetchedProductsHot] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPageNew, setCurrentPageNew] = useState<number>(1);
+  const [currentPageHot, setCurrentPageHot] = useState<number>(1);
 
   useEffect(() => {
     const fetchDataNew = async () => {
       try {
-        const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=id_desc`);
+        const url = `http://152.67.138.40/api/products/?page=${currentPageNew}&page_size=5&sort_by=id_desc`;
+        const response = await fetch(url);
         const data = await response.json();
+
         const products = data.results || [];
         setFetchedProductsNew((prevProducts) => [...prevProducts, ...products]);
-        // setFetchedProductsNew(data);
-        console.log("Dane z API:", data);
       } catch (error) {
         console.error("Błąd pobierania danych:", error);
       }
     };
-  
+
+    fetchDataNew();
+  }, [currentPageNew]);
+
+  useEffect(() => {
     const fetchDataHot = async () => {
       try {
-        const response = await fetch(`http://152.67.138.40/api/products/?page=${currentPage}&sort_by=upvotes`);
+        const url = `http://152.67.138.40/api/products/?page=${currentPageHot}&page_size=5&sort_by=upvotes`;
+        const response = await fetch(url);
         const data = await response.json();
+
         const products = data.results || [];
         setFetchedProductsHot((prevProducts) => [...prevProducts, ...products]);
-        // setFetchedProductsHot(data);
-        console.log("Dane z API:", data);
       } catch (error) {
         console.error("Błąd pobierania danych:", error);
       }
     };
-  
-    fetchDataNew();
-    fetchDataHot();
-  }, [currentPage]);
 
-  const loadMore = () => {
+    fetchDataHot();
+  }, [currentPageHot]);
+
+  const loadMoreNew = () => {
     // Increment the current page
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPageNew((prevPage) => prevPage + 1);
+  };
+
+  const loadMoreHot = () => {
+    // Increment the current page
+    setCurrentPageHot((prevPage) => prevPage + 1);
   };
 
   return (
-    <div className="flex">
-      <div className="w-1/2 h-96 m-2">
-        <h2>What's new?</h2>
+    <div className="flex h-screen">
+      <div className="w-1/2 h-4/6 m-2">
+        <h2 className="text-2xl font-bold">What's new?</h2>
         <GameList
           games={fetchedProductsNew.map((product) => ({
             title: product.name,
             thumbnail_url: product.thumbnail,
             description: product.description,
+            slug: product.slug,
           }))}
         />
+        <button
+          className="bg-[#0a192f] text-gray-300 p-2 rounded-md"
+          onClick={loadMoreNew}
+        >
+          Load More
+        </button>
       </div>
-      <div className="w-1/2 h-96 m-2">
-        <h2>Top for this week</h2>
+      <div className="w-1/2 h-4/6 m-2">
+        <h2 className="text-2xl font-bold">Top for this week</h2>
         <GameList
           games={fetchedProductsHot.map((product) => ({
-            title: product.title,
+            title: product.name,
             thumbnail_url: product.thumbnail,
             description: product.description,
+            slug: product.slug,
           }))}
         />
-        <button onClick={loadMore}>Load More</button>
+        <button
+          className="bg-[#0a192f] text-gray-300 p-2 rounded-md"
+          onClick={loadMoreHot}
+        >
+          Load More
+        </button>
       </div>
-      
     </div>
   );
 };

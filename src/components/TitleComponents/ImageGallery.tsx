@@ -59,11 +59,20 @@ const ImageGallery = ({
       </ul>
       <div className="col-span-2 pl-4 justify-center flex flex-col">
         <p>
-          Up votes {upvotes} / {downvotes} Down votes
+          Up votes &#x1F44D; {upvotes} / {downvotes} &#x1F44E; Down votes
         </p>
-        <p>
-          Players: {min_players} / {max_players}
-        </p>
+
+        {min_players === max_players ? (
+          <p>
+            <br />
+            For {min_players} players
+          </p>
+        ) : (
+          <p>
+            <br />
+            From {min_players} to {max_players} players
+          </p>
+        )}
       </div>
     </div>
   );
