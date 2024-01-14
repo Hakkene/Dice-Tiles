@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -20,7 +21,7 @@ const SignUpScreen = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/register/", {
+      const response = await fetch("http://152.67.138.40/api/register/", {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -37,7 +38,7 @@ const SignUpScreen = () => {
 
       if (response.ok) {
         console.log("User successfully registered");
-        <Link to={`/login`}></Link>;
+        navigate("/login"); // Navigate to "/login" on successful registration
       } else {
         const errorData = await response.json();
         console.error("Registration failed:", errorData);

@@ -2,42 +2,45 @@ import { useEffect, useState } from "react";
 import Comment from "./Comment";
 
 interface CommentProps {
-  id: string;
+  product: number;
 }
 
 interface CommentData {
-  id: number;
-  title: string;
+  product: number;
   body: string;
   created_on: Date;
   owner: string;
 }
 
-const CommentSection = ({ id }: CommentProps) => {
+const CommentSection = ({ product }: CommentProps) => {
   const [comments, setComments] = useState<CommentData[]>([]);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/comment/${id}/`
+          `http://152.67.138.40/api/comment/?product=${product}`
         );
         const data = await response.json();
-        setComments(data.results || []);
+
+        const filteredComments = data.results.filter(
+          (comment: CommentData) => comment.product === product
+        );
+        setComments(filteredComments || []);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
 
     fetchComments();
-  }, [id]);
+  }, [product]);
 
   return (
     <div className="mb-4">
       <h2 className="m-4 text-2xl font-bold">Comments</h2>
       <ul className="comoverflow-y-auto gap-1">
         {comments.map((comment) => (
-          <li key={comment.id}>
+          <li key={comment.product}>
             <Comment
               owner={comment.owner}
               body={comment.body}

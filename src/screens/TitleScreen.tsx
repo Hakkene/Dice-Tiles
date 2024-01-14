@@ -1,14 +1,16 @@
 import CommentSection from "../components/TitleComponents/CommentSection";
+import AddComment from "../components/TitleComponents/AddComment";
 import Description from "../components/TitleComponents/Description";
 import ImageGallery from "../components/TitleComponents/ImageGallery";
 import Recomendations from "../components/TitleComponents/Recomendations";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../AuthContext.tsx";
 
 const TitleScreen = () => {
   const { slug } = useParams<{ slug: string }>();
-
   const [product, setproduct] = useState<any | null>(null);
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,13 @@ const TitleScreen = () => {
         recommendations={images}
         onRecommendationClick={handleRecommendationClick}
       />
+      {token && (
+        <AddComment
+          product={product.id}
+          onCommentAdded={() => console.log("Comment added")}
+        />
+      )}
+      <CommentSection product={product.id} />
     </div>
   );
 };
