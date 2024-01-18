@@ -28,7 +28,7 @@ const ImageGallery = ({
   };
 
   return (
-    <div className="grid grid-cols-5 mb-20">
+    <div className="grid grid-cols-5 mb-14">
       <div className="col-span-5">
         <h2 className="m-4 text-2xl font-bold">{title}</h2>
       </div>

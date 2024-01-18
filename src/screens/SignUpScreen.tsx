@@ -5,6 +5,7 @@ const SignUpScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Dodaj nowy stan na przechowywanie komunikatu o błędzie
   const navigate = useNavigate();
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,11 +39,19 @@ const SignUpScreen = () => {
 
       if (response.ok) {
         console.log("User successfully registered");
-        navigate("/login"); // Navigate to "/login" on successful registration
+        navigate("/login");
       } else {
         const errorData = await response.json();
         console.error("Registration failed:", errorData);
-        // Handle registration failure
+
+        // Sprawdź, czy błąd zawiera informację o duplikacie użytkownika
+        if (errorData.username) {
+          setErrorMessage("A user with that username already exists");
+        } else if (errorData.email) {
+          setErrorMessage("Enter a valid email address.");
+        } else {
+          setErrorMessage("Registration failed. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -87,8 +96,11 @@ const SignUpScreen = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+
+        {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+
         <button
-          className="bg-blue-500 text-white p-2 rounded-md mt-10"
+          className="bg-blue-500 text-white p-2 rounded-md mt-4"
           onClick={handleSignUp}
         >
           Sign Up

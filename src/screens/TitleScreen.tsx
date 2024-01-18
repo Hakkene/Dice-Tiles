@@ -3,6 +3,7 @@ import AddComment from "../components/TitleComponents/AddComment";
 import Description from "../components/TitleComponents/Description";
 import ImageGallery from "../components/TitleComponents/ImageGallery";
 import Recomendations from "../components/TitleComponents/Recomendations";
+import AddLikeDislike from "../components/TitleComponents/AddLikeDislike.tsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../AuthContext.tsx";
@@ -59,6 +60,7 @@ const TitleScreen = () => {
         min_players={product.min_players}
         max_players={product.max_players}
       />
+      {token && <AddLikeDislike id={product.id} />}
       <Description description={product.description} />
       <Recomendations
         recommendations={images}
