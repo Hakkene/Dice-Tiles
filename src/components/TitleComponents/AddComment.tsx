@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../AuthContext.tsx";
+
 interface AddCommentProps {
   product: number;
   onCommentAdded: () => void;
@@ -9,12 +10,15 @@ const AddComment: React.FC<AddCommentProps> = ({ product, onCommentAdded }) => {
   const [body, setBody] = useState<string>("");
   const { token } = useAuth();
 
+  console.log("Token:", token);
+
   const handleBodyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(e.target.value);
   };
 
   const handleAddComment = async () => {
     try {
+      console.log("Adding comment...");
       const response = await fetch("http://152.67.138.40/api/comment/", {
         method: "POST",
         headers: {
@@ -26,6 +30,8 @@ const AddComment: React.FC<AddCommentProps> = ({ product, onCommentAdded }) => {
           body: body,
         }),
       });
+
+      console.log("Response status:", response.status);
 
       if (response.ok) {
         console.log("Comment added successfully");

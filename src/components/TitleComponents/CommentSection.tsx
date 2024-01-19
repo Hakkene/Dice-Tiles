@@ -21,10 +21,19 @@ const CommentSection = ({ product }: CommentProps) => {
         const response = await fetch(`http://152.67.138.40/api/comment/`);
         const data = await response.json();
 
-        const filteredComments = data.results.filter(
-          (comment: CommentData) => comment.id === product
-        );
-        setComments(filteredComments || []);
+        console.log("Received data from server:", data);
+
+        if (Array.isArray(data)) {
+          const filteredComments = data.filter(
+            (comment: CommentData) => comment.id === product
+          );
+
+          console.log("Filtered comments:", filteredComments);
+
+          setComments(filteredComments || []);
+        } else {
+          console.error("Invalid data structure received from server");
+        }
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
