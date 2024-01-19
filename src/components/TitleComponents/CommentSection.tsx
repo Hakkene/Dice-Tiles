@@ -6,7 +6,7 @@ interface CommentProps {
 }
 
 interface CommentData {
-  id: number;
+  product: number;
   body: string;
   created_on: Date;
   owner: string;
@@ -25,10 +25,11 @@ const CommentSection = ({ product }: CommentProps) => {
 
         if (Array.isArray(data)) {
           const filteredComments = data.filter(
-            (comment: CommentData) => comment.id === product
+            (comment: CommentData) => comment.product === product
           );
 
           console.log("Filtered comments:", filteredComments);
+          console.log("Filtered comments id:", product);
 
           setComments(filteredComments || []);
         } else {
@@ -47,7 +48,7 @@ const CommentSection = ({ product }: CommentProps) => {
       <h2 className="m-4 text-2xl font-bold">Comments</h2>
       <ul className="comoverflow-y-auto gap-1">
         {comments.map((comment) => (
-          <li key={comment.id}>
+          <li key={comment.product}>
             <Comment
               owner={comment.owner}
               body={comment.body}

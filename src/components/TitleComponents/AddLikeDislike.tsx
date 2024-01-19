@@ -14,7 +14,7 @@ const AddLikeDislike = ({ id }: Props) => {
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `token ${token}`,
         },
         body: JSON.stringify({
           product: id,
@@ -39,7 +39,7 @@ const AddLikeDislike = ({ id }: Props) => {
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `token ${token}`,
         },
         body: JSON.stringify({
           product: id,
@@ -69,14 +69,14 @@ const AddLikeDislike = ({ id }: Props) => {
       <p className="col-span-2" />
       <button
         className="col-span-2 bg-blue-500 text-white p-2 rounded-md mt-2"
-        onClick={() => handleVote(1)}
+        onClick={() => handleVote(2)}
       >
         Like
       </button>
       <p className="col-span-1" />
       <button
         className="col-span-2 bg-blue-500 text-white p-2 rounded-md mt-2"
-        onClick={() => handleVote(0)}
+        onClick={() => handleVote(1)}
       >
         Dislike
       </button>
