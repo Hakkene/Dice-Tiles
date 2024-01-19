@@ -21,7 +21,7 @@ const UserListScreen = () => {
 
   return (
     <div className="m-4 p-4">
-      <h2>twoaj lista</h2>
+      <h2>Twoja lista</h2>
       <GameList
         games={fetchedProducts.map((product) => ({
           title: product.name,

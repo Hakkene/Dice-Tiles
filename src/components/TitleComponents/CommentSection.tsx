@@ -23,10 +23,19 @@ const CommentSection = ({ product }: CommentProps) => {
         );
         const data = await response.json();
 
-        const filteredComments = data.results.filter(
-          (comment: CommentData) => comment.product === product
-        );
-        setComments(filteredComments || []);
+        console.log("Received data from server:", data);
+
+        if (Array.isArray(data)) {
+          const filteredComments = data.filter(
+            (comment: CommentData) => comment.product === product
+          );
+
+          console.log("Filtered comments:", filteredComments);
+
+          setComments(filteredComments || []);
+        } else {
+          console.error("Invalid data structure received from server");
+        }
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
