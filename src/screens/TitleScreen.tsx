@@ -12,6 +12,7 @@ const TitleScreen = () => {
   const { slug } = useParams<{ slug: string }>();
   const [product, setproduct] = useState<any | null>(null);
   const { token } = useAuth();
+  const [commentCount, setCommentCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +33,13 @@ const TitleScreen = () => {
     fetchData();
   }, [slug]);
 
+  const handleCommentAdded = () => {
+    // Aktualizuj lokalny stan związanym z liczbą komentarzy
+    setCommentCount((prevCount) => prevCount + 1);
+  };
+
   if (!product) {
-    return <div>Loading...</div>; // You might want to handle the case where the product is not found
+    return <div>Loading...</div>;
   }
 
   const handleRecommendationClick = (item: string) => {
@@ -67,12 +73,9 @@ const TitleScreen = () => {
         onRecommendationClick={handleRecommendationClick}
       />
       {token && (
-        <AddComment
-          product={product.id}
-          onCommentAdded={() => console.log("Comment added")}
-        />
+        <AddComment product={product.id} onCommentAdded={handleCommentAdded} />
       )}
-      <CommentSection product={product.id} />
+      <CommentSection key={commentCount} product={product.id} />
     </div>
   );
 };

@@ -18,9 +18,7 @@ const CommentSection = ({ product }: CommentProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(
-          `http://152.67.138.40/api/comment/?product=${product}`
-        );
+        const response = await fetch(`http://152.67.138.40/api/comment/`);
         const data = await response.json();
 
         console.log("Received data from server:", data);
@@ -31,6 +29,7 @@ const CommentSection = ({ product }: CommentProps) => {
           );
 
           console.log("Filtered comments:", filteredComments);
+          console.log("Filtered comments id:", product);
 
           setComments(filteredComments || []);
         } else {
