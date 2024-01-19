@@ -6,7 +6,7 @@ interface CommentProps {
 }
 
 interface CommentData {
-  product: number;
+  id: number;
   body: string;
   created_on: Date;
   owner: string;
@@ -18,13 +18,11 @@ const CommentSection = ({ product }: CommentProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(
-          `http://152.67.138.40/api/comment/?product=${product}`
-        );
+        const response = await fetch(`http://152.67.138.40/api/comment/`);
         const data = await response.json();
 
         const filteredComments = data.results.filter(
-          (comment: CommentData) => comment.product === product
+          (comment: CommentData) => comment.id === product
         );
         setComments(filteredComments || []);
       } catch (error) {
@@ -40,7 +38,7 @@ const CommentSection = ({ product }: CommentProps) => {
       <h2 className="m-4 text-2xl font-bold">Comments</h2>
       <ul className="comoverflow-y-auto gap-1">
         {comments.map((comment) => (
-          <li key={comment.product}>
+          <li key={comment.id}>
             <Comment
               owner={comment.owner}
               body={comment.body}
