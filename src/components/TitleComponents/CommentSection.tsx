@@ -18,15 +18,23 @@ const CommentSection = ({ product }: CommentProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(
-          `http://152.67.138.40/api/comment/?product=${product}`
-        );
+        const response = await fetch(`http://152.67.138.40/api/comment/`);
         const data = await response.json();
 
-        const filteredComments = data.results.filter(
-          (comment: CommentData) => comment.product === product
-        );
-        setComments(filteredComments || []);
+        console.log("Received data from server:", data);
+
+        if (Array.isArray(data)) {
+          const filteredComments = data.filter(
+            (comment: CommentData) => comment.product === product
+          );
+
+          console.log("Filtered comments:", filteredComments);
+          console.log("Filtered comments id:", product);
+
+          setComments(filteredComments || []);
+        } else {
+          console.error("Invalid data structure received from server");
+        }
       } catch (error) {
         console.error("Error fetching comments:", error);
       }

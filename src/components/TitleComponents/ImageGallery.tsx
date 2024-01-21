@@ -5,8 +5,6 @@ interface Props {
   image_url: string;
   description: string;
   images: string[];
-  upvotes: number;
-  downvotes: number;
   min_players: number;
   max_players: number;
 }
@@ -16,8 +14,6 @@ const ImageGallery = ({
   description,
   image_url,
   images,
-  upvotes,
-  downvotes,
   min_players,
   max_players,
 }: Props) => {
@@ -28,7 +24,7 @@ const ImageGallery = ({
   };
 
   return (
-    <div className="grid grid-cols-5 mb-20">
+    <div className="grid grid-cols-5 mb-14">
       <div className="col-span-5">
         <h2 className="m-4 text-2xl font-bold">{title}</h2>
       </div>
@@ -57,18 +53,14 @@ const ImageGallery = ({
           </li>
         ))}
       </ul>
-      <div className="col-span-2 pl-4 justify-center flex flex-col">
-        <p>
-          Up votes &#x1F44D; {upvotes} / {downvotes} &#x1F44E; Down votes
-        </p>
-
+      <div className="col-span-2 justify-center flex flex-col">
         {min_players === max_players ? (
           <p>
             <br />
             For {min_players} players
           </p>
         ) : (
-          <p>
+          <p className="text-center text-xl">
             <br />
             From {min_players} to {max_players} players
           </p>

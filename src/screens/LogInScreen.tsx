@@ -5,6 +5,7 @@ import { useAuth } from "../AuthContext.tsx";
 const LogInScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { setToken } = useAuth();
 
@@ -41,6 +42,7 @@ const LogInScreen = () => {
       } else {
         const errorData = await response.json();
         console.error("LogIn failed:", errorData);
+        setErrorMessage("Log in failed. Please try again.");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -78,6 +80,8 @@ const LogInScreen = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+
+        {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
 
         <button
           className="bg-blue-500 text-white p-2 rounded-md mt-10"
