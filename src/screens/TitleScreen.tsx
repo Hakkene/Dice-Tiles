@@ -17,8 +17,8 @@ const TitleScreen = () => {
   const fetchData = async () => {
     try {
       if (slug) {
-        // Check if token is present
-        const headers = token
+        // Check if the user is logged in (token is present)
+        const headers: Record<string, string> = token
           ? { Authorization: `Token ${token}` }
           : {};
   
@@ -37,6 +37,7 @@ const TitleScreen = () => {
       console.error("Błąd pobierania danych:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
