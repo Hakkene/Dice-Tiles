@@ -17,14 +17,18 @@ const TitleScreen = () => {
   const fetchData = async () => {
     try {
       if (slug) {
+        // Check if the user is logged in (token is present)
+        const headers: Record<string, string> = token
+          ? { Authorization: `Token ${token}` }
+          : {};
+  
         const response = await fetch(
           `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`,
           {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            headers,
           }
         );
+  
         const data = await response.json();
         setProduct(data || null);
         console.log("Dane z API:", data);
@@ -33,6 +37,7 @@ const TitleScreen = () => {
       console.error("Błąd pobierania danych:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
