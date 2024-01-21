@@ -17,14 +17,18 @@ const TitleScreen = () => {
   const fetchData = async () => {
     try {
       if (slug) {
+        // Check if token is present
+        const headers = token
+          ? { Authorization: `Token ${token}` }
+          : {};
+  
         const response = await fetch(
           `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`,
           {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            headers,
           }
         );
+  
         const data = await response.json();
         setProduct(data || null);
         console.log("Dane z API:", data);
