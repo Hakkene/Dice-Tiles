@@ -10,28 +10,38 @@ import { useAuth } from "../AuthContext.tsx";
 
 const TitleScreen = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [product, setproduct] = useState<any | null>(null);
+  const [product, setProduct] = useState<any | null>(null);
   const { token } = useAuth();
   const [commentCount, setCommentCount] = useState<number>(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (slug) {
-          const response = await fetch(
-            `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`
-          );
-          const data = await response.json();
-          setproduct(data || null);
-          console.log("Dane z API:", data);
-        }
-      } catch (error) {
-        console.error("Błąd pobierania danych:", error);
+  const fetchData = async () => {
+    try {
+      if (slug) {
+        const response = await fetch(
+          `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        setProduct(data || null);
+        console.log("Dane z API:", data);
       }
-    };
+    } catch (error) {
+      console.error("Błąd pobierania danych:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [slug]);
+
+  const handleVoteSubmitted = () => {
+    // Force a re-fetch of the product data to update the component
+    fetchData();
+  };
 
   const handleCommentAdded = () => {
     // Aktualizuj lokalny stan związanym z liczbą komentarzy
@@ -61,12 +71,18 @@ const TitleScreen = () => {
         image_url={product.image1}
         description={product.description}
         images={images}
-        upvotes={product.upvotes}
-        downvotes={product.downvotes}
         min_players={product.min_players}
         max_players={product.max_players}
       />
-      {token && <AddLikeDislike id={product.id} />}
+      {token && (
+        <AddLikeDislike
+          id={product.id}
+          liked={product.user_vote}
+          upvotes={product.upvotes}
+          downvotes={product.downvotes}
+          onVoteSubmitted={handleVoteSubmitted}
+        />
+      )}
       <Description description={product.description} />
       <Recomendations
         recommendations={images}
