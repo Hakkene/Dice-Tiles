@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 interface Props {
   title: string;
@@ -19,9 +19,16 @@ const ImageGallery = ({
 }: Props) => {
   const [selectedImage, setSelectedImage] = useState(image_url);
 
-  const handleImageClick = (image: string) => {
-    setSelectedImage(image);
-  };
+  // useMemo dla buforowania selectedImage
+  const memoSelectedImage = useMemo(() => selectedImage, [selectedImage]);
+
+  // useCallback dla buforowania funkcji handleImageClick
+  const memoHandleImageClick = useCallback(
+    (image: string) => {
+      setSelectedImage(image);
+    },
+    [] // pusta zależność, ponieważ funkcja nie używa żadnych zewnętrznych zmiennych
+  );
 
   return (
     <div className="grid grid-cols-5 mb-14">
@@ -30,7 +37,7 @@ const ImageGallery = ({
       </div>
       <div className="mb-4 col-span-3 h-96">
         <img
-          src={selectedImage}
+          src={memoSelectedImage} // Użycie buforowanej wartości
           alt="img"
           className="object-cover w-full h-full bg-slate-400"
         />
@@ -42,7 +49,7 @@ const ImageGallery = ({
         {images.map((image, index) => (
           <li
             key={index}
-            onClick={() => handleImageClick(image)}
+            onClick={() => memoHandleImageClick(image)} // Użycie buforowanej funkcji
             className="w-1/5 flex-none"
           >
             <img

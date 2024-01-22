@@ -1,12 +1,12 @@
+import { useEffect, useState, useMemo, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../AuthContext.tsx";
 import CommentSection from "../components/TitleComponents/CommentSection";
 import AddComment from "../components/TitleComponents/AddComment";
 import Description from "../components/TitleComponents/Description";
 import ImageGallery from "../components/TitleComponents/ImageGallery";
 import Recomendations from "../components/TitleComponents/Recomendations";
 import AddLikeDislike from "../components/TitleComponents/AddLikeDislike.tsx";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useAuth } from "../AuthContext.tsx";
 
 const TitleScreen = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -14,21 +14,20 @@ const TitleScreen = () => {
   const { token } = useAuth();
   const [commentCount, setCommentCount] = useState<number>(0);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       if (slug) {
-        // Check if the user is logged in (token is present)
         const headers: Record<string, string> = token
           ? { Authorization: `Token ${token}` }
           : {};
-  
+
         const response = await fetch(
           `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`,
           {
             headers,
           }
         );
-  
+
         const data = await response.json();
         setProduct(data || null);
         console.log("Dane z API:", data);
@@ -36,38 +35,38 @@ const TitleScreen = () => {
     } catch (error) {
       console.error("Błąd pobierania danych:", error);
     }
-  };
-  
+  }, [slug, token]);
 
   useEffect(() => {
     fetchData();
-  }, [slug]);
+  }, [fetchData]);
 
-  const handleVoteSubmitted = () => {
-    // Force a re-fetch of the product data to update the component
+  const handleVoteSubmitted = useCallback(() => {
     fetchData();
-  };
+  }, [fetchData]);
 
-  const handleCommentAdded = () => {
-    // Aktualizuj lokalny stan związanym z liczbą komentarzy
+  const handleCommentAdded = useCallback(() => {
     setCommentCount((prevCount) => prevCount + 1);
-  };
+  }, []);
+
+  const handleRecommendationClick = useCallback((item: string) => {
+    console.log(item);
+  }, []);
+
+  const images = useMemo(
+    () => [
+      product?.image1,
+      product?.image2,
+      product?.image3,
+      product?.image4,
+      product?.image5,
+    ],
+    [product]
+  );
 
   if (!product) {
     return <div>Loading...</div>;
   }
-
-  const handleRecommendationClick = (item: string) => {
-    console.log(item);
-  };
-
-  const images = [
-    product.image1,
-    product.image2,
-    product.image3,
-    product.image4,
-    product.image5,
-  ];
 
   return (
     <div className="w-3/5 mx-auto flex flex-col justify-center">

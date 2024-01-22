@@ -1,5 +1,5 @@
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useAuth } from "../../AuthContext";
-import { useState, useEffect } from "react";
 
 interface Props {
   id: number;
@@ -20,7 +20,7 @@ const AddLikeDislike = ({
   const [isLiked, setIsLiked] = useState<number | null>(liked);
   const [isInCollection, setIsInCollection] = useState<boolean>(false);
 
-  const checkIfInCollection = async () => {
+  const checkIfInCollection = useCallback(async () => {
     try {
       const response = await fetch(
         `http://152.67.138.40/api/ownedproduct/${encodeURIComponent(id)}/`,
@@ -42,14 +42,14 @@ const AddLikeDislike = ({
     } catch (error) {
       console.error("Error checking if in collection:", error);
     }
-  };
+  }, [id, token]);
 
   useEffect(() => {
     setIsLiked(liked);
     checkIfInCollection();
-  }, []);
+  }, [liked, checkIfInCollection]);
 
-  const handleAdd = async () => {
+  const handleAdd = useCallback(async () => {
     try {
       const response = await fetch(`http://152.67.138.40/api/ownedproduct/`, {
         method: "POST",
@@ -75,66 +75,66 @@ const AddLikeDislike = ({
     } catch (error) {
       console.error("Error during adding product:", error);
     }
-  };
+  }, [id, token]);
 
-  const handleVote = async (vote: number) => {
-    try {
-      const newVote = isLiked === vote ? 0 : vote; // Check if the new vote is the same as the current one
+  const handleVote = useCallback(
+    async (vote: number) => {
+      try {
+        const newVote = isLiked === vote ? 0 : vote;
 
-      const response = await fetch(`http://152.67.138.40/api/vote/`, {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `token ${token}`,
-        },
-        body: JSON.stringify({
-          product: id,
-          value: newVote,
-        }),
-      });
+        const response = await fetch(`http://152.67.138.40/api/vote/`, {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `token ${token}`,
+          },
+          body: JSON.stringify({
+            product: id,
+            value: newVote,
+          }),
+        });
 
-      if (response.ok) {
-        console.log("Vote submitted successfully");
-
-        // Update the local state to reflect the new vote
-        setIsLiked(newVote);
-
-        // Callback to refresh the TitleScreen component
-        onVoteSubmitted();
-      } else {
-        const errorData = await response.json();
-        console.error("Voting failed:", errorData);
+        if (response.ok) {
+          console.log("Vote submitted successfully");
+          setIsLiked(newVote);
+          onVoteSubmitted();
+        } else {
+          const errorData = await response.json();
+          console.error("Voting failed:", errorData);
+        }
+      } catch (error) {
+        console.error("Error during voting:", error);
       }
-    } catch (error) {
-      console.error("Error during voting:", error);
-    }
-  };
+    },
+    [id, isLiked, onVoteSubmitted, token]
+  );
 
-  const likeStyle = (value: number | null) => {
-    switch (value) {
+  const likeStyle = useMemo(() => {
+    switch (isLiked) {
       case 2:
         return "bg-blue-500 text-white";
       default:
         return "bg-blue-300 text-white";
     }
-  };
-  const dislikeStyle = (value: number | null) => {
-    switch (value) {
+  }, [isLiked]);
+
+  const dislikeStyle = useMemo(() => {
+    switch (isLiked) {
       case 1:
         return "bg-blue-500 text-white";
       default:
         return "bg-blue-300 text-white";
     }
-  };
+  }, [isLiked]);
 
-  const addToCollectionStyle = () => {
+  const addToCollectionStyle = useMemo(() => {
     return isInCollection ? "bg-red-500 text-white" : "bg-blue-500 text-white";
-  };
+  }, [isInCollection]);
 
-  const addToCollectionText = () => {
+  const addToCollectionText = useMemo(() => {
     return isInCollection ? "Is in your collection" : "Add to your collection";
-  };
+  }, [isInCollection]);
 
   return (
     <div className="grid grid-cols-12 mb-10">
@@ -143,21 +143,21 @@ const AddLikeDislike = ({
       <p className="col-span-1" />
       <p className="col-span-2 text-center">{downvotes} &#x1F44E; Down votes</p>
       <button
-        className={`col-span-4 p-2 rounded-md mt-2 ${addToCollectionStyle()}`}
+        className={`col-span-4 p-2 rounded-md mt-2 ${addToCollectionStyle}`}
         onClick={handleAdd}
       >
-        {addToCollectionText()}
+        {addToCollectionText}
       </button>
       <p className="col-span-2" />
       <button
-        className={`col-span-2 p-2 rounded-md mt-2 ${likeStyle(isLiked)}`}
+        className={`col-span-2 p-2 rounded-md mt-2 ${likeStyle}`}
         onClick={() => handleVote(2)}
       >
         Like
       </button>
       <p className="col-span-1" />
       <button
-        className={`col-span-2 p-2 rounded-md mt-2 ${dislikeStyle(isLiked)}`}
+        className={`col-span-2 p-2 rounded-md mt-2 ${dislikeStyle}`}
         onClick={() => handleVote(1)}
       >
         Dislike

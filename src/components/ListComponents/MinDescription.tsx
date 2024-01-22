@@ -1,3 +1,4 @@
+import { useMemo, memo } from "react";
 
 interface Props {
   text: string;
@@ -5,13 +6,11 @@ interface Props {
 }
 
 const MinDescription = ({ text, maxLength }: Props) => {
-  const shortenedText = text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  const shortenedText = useMemo(() => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  }, [text, maxLength]);
 
-  return (
-    <p className="description-text">
-      {shortenedText}
-    </p>
-  );
+  return <p className="description-text">{shortenedText}</p>;
 };
 
-export default MinDescription;
+export default memo(MinDescription);

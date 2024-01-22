@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useAuth } from "../../AuthContext.tsx";
 
 interface AddCommentProps {
@@ -12,11 +12,14 @@ const AddComment: React.FC<AddCommentProps> = ({ product, onCommentAdded }) => {
 
   console.log("Token:", token);
 
-  const handleBodyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(e.target.value);
-  };
+  const handleBodyChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setBody(e.target.value);
+    },
+    []
+  );
 
-  const handleAddComment = async () => {
+  const handleAddComment = useCallback(async () => {
     try {
       console.log("Adding comment...");
       const response = await fetch("http://152.67.138.40/api/comment/", {
@@ -44,24 +47,27 @@ const AddComment: React.FC<AddCommentProps> = ({ product, onCommentAdded }) => {
     } catch (error) {
       console.error("Error during comment addition:", error);
     }
-  };
+  }, [token, product, body, onCommentAdded]);
 
-  return (
-    <div className="mt-4">
-      <h2 className="text-xl font-bold">Add a Comment</h2>
-      <textarea
-        className="mt-2 p-2 border border-gray-300 rounded-md w-full"
-        placeholder="Enter your comment..."
-        value={body}
-        onChange={handleBodyChange}
-      />
-      <button
-        className="bg-blue-500 text-white p-2 rounded-md mt-2"
-        onClick={handleAddComment}
-      >
-        Add Comment
-      </button>
-    </div>
+  return useMemo(
+    () => (
+      <div className="mt-4">
+        <h2 className="text-xl font-bold">Add a Comment</h2>
+        <textarea
+          className="mt-2 p-2 border border-gray-300 rounded-md w-full"
+          placeholder="Enter your comment..."
+          value={body}
+          onChange={handleBodyChange}
+        />
+        <button
+          className="bg-blue-500 text-white p-2 rounded-md mt-2"
+          onClick={handleAddComment}
+        >
+          Add Comment
+        </button>
+      </div>
+    ),
+    [body, handleBodyChange, handleAddComment]
   );
 };
 
