@@ -78,7 +78,7 @@ const AddLikeDislike = ({
 
   const handleVote = async (vote: number) => {
     try {
-      const newVote = isLiked === vote ? 0 : vote; // Check if the new vote is the same as the current one
+      const newVote = isLiked === vote ? 0 : vote;
 
       const response = await fetch(`http://localhost:8000/api/vote/`, {
         method: "POST",
@@ -96,10 +96,8 @@ const AddLikeDislike = ({
       if (response.ok) {
         console.log("Vote submitted successfully");
 
-        // Update the local state to reflect the new vote
         setIsLiked(newVote);
 
-        // Callback to refresh the TitleScreen component
         onVoteSubmitted();
       } else {
         const errorData = await response.json();
