@@ -9,7 +9,7 @@ const UserListScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = "http://152.67.138.40/api/ownedproduct/";
+        const url = "http://localhost:8000/api/ownedproduct/";
         const response = await fetch(url, {
           headers: {
             Authorization: `Token ${token}`,

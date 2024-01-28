@@ -20,7 +20,7 @@ const LogInScreen = () => {
   const handleLogIn = async () => {
     console.log("Logging in with:", username, password);
     try {
-      const response = await fetch("http://152.67.138.40/api/login/", {
+      const response = await fetch("http://localhost:8000/api/login/", {
         method: "POST",
         headers: {
           accept: "application/json",

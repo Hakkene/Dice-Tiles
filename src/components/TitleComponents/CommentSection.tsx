@@ -18,7 +18,7 @@ const CommentSection = ({ product }: CommentProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://152.67.138.40/api/comment/`);
+        const response = await fetch(`http://localhost:8000/api/comment/`);
         const data = await response.json();
 
         console.log("Received data from server:", data);

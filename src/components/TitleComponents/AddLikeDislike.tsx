@@ -20,10 +20,10 @@ const AddLikeDislike = ({
   const [isLiked, setIsLiked] = useState<number | null>(liked);
   const [isInCollection, setIsInCollection] = useState<boolean>(false);
 
-  const checkIfInCollection = async () => {
+  const checkIfInCollection = async (idToCheck: number) => {
     try {
       const response = await fetch(
-        `http://152.67.138.40/api/ownedproduct/${encodeURIComponent(id)}/`,
+        `http://localhost:8000/api/ownedproduct/${idToCheck}/`,
         {
           method: "GET",
           headers: {
@@ -35,7 +35,7 @@ const AddLikeDislike = ({
 
       if (response.ok) {
         const data = await response.json();
-        setIsInCollection(data.in_collection);
+        setIsInCollection(data.id === idToCheck);
       } else {
         setIsInCollection(false);
       }
@@ -46,12 +46,12 @@ const AddLikeDislike = ({
 
   useEffect(() => {
     setIsLiked(liked);
-    checkIfInCollection();
-  }, []);
+    checkIfInCollection(id);
+  }, [id]);
 
   const handleAdd = async () => {
     try {
-      const response = await fetch(`http://152.67.138.40/api/ownedproduct/`, {
+      const response = await fetch(`http://localhost:8000/api/ownedproduct/`, {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -66,7 +66,6 @@ const AddLikeDislike = ({
       if (response.ok) {
         console.log("Product added successfully");
 
-        // Update the local state to reflect the new addition to the collection
         setIsInCollection(true);
       } else {
         const errorData = await response.json();
@@ -81,7 +80,7 @@ const AddLikeDislike = ({
     try {
       const newVote = isLiked === vote ? 0 : vote; // Check if the new vote is the same as the current one
 
-      const response = await fetch(`http://152.67.138.40/api/vote/`, {
+      const response = await fetch(`http://localhost:8000/api/vote/`, {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -128,13 +127,11 @@ const AddLikeDislike = ({
     }
   };
 
-  const addToCollectionStyle = () => {
-    return isInCollection ? "bg-red-500 text-white" : "bg-blue-500 text-white";
-  };
+  const addToCollectionStyle = () =>
+    isInCollection ? "bg-red-500 text-white" : "bg-blue-500 text-white";
 
-  const addToCollectionText = () => {
-    return isInCollection ? "Is in your collection" : "Add to your collection";
-  };
+  const addToCollectionText = () =>
+    isInCollection ? "Is in your collection" : "Add to your collection";
 
   return (
     <div className="grid grid-cols-12 mb-10">

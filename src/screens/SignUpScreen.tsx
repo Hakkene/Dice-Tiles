@@ -22,7 +22,7 @@ const SignUpScreen = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await fetch("http://152.67.138.40/api/register/", {
+      const response = await fetch("http://localhost:8000/api/register/", {
         method: "POST",
         headers: {
           accept: "application/json",
