@@ -49,11 +49,6 @@ const LogInScreen = () => {
     }
   };
 
-  const handleForgotPassword = () => {
-    // Logika obsługi zapomnianego hasła (do zaimplementowania)
-    console.log("Forgot Password");
-  };
-
   return (
     <div className="flex justify-center mt-20">
       <div className="w-1/5 flex flex-col ">
@@ -88,13 +83,6 @@ const LogInScreen = () => {
           onClick={handleLogIn}
         >
           Log In
-        </button>
-
-        <button
-          className="text-sm text-blue-500 mt-2"
-          onClick={handleForgotPassword}
-        >
-          Forgot Password
         </button>
       </div>
     </div>
