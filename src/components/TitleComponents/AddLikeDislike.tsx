@@ -34,8 +34,7 @@ const AddLikeDislike = ({
       );
 
       if (response.ok) {
-        const data = await response.json();
-        setIsInCollection(data.id === idToCheck);
+        setIsInCollection(true);
       } else {
         setIsInCollection(false);
       }
