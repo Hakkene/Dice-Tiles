@@ -20,7 +20,7 @@ const LogInScreen = () => {
   const handleLogIn = async () => {
     console.log("Logging in with:", username, password);
     try {
-      const response = await fetch("http://152.67.138.40/api/login/", {
+      const response = await fetch("http://localhost:8000/api/login/", {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -47,11 +47,6 @@ const LogInScreen = () => {
     } catch (error) {
       console.error("Error during login:", error);
     }
-  };
-
-  const handleForgotPassword = () => {
-    // Logika obsługi zapomnianego hasła (do zaimplementowania)
-    console.log("Forgot Password");
   };
 
   return (
@@ -88,13 +83,6 @@ const LogInScreen = () => {
           onClick={handleLogIn}
         >
           Log In
-        </button>
-
-        <button
-          className="text-sm text-blue-500 mt-2"
-          onClick={handleForgotPassword}
-        >
-          Forgot Password
         </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   title: string;
@@ -18,6 +18,10 @@ const ImageGallery = ({
   max_players,
 }: Props) => {
   const [selectedImage, setSelectedImage] = useState(image_url);
+
+  useEffect(() => {
+    setSelectedImage(image_url);
+  }, [image_url]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);

@@ -21,14 +21,14 @@ const TitleScreen = () => {
         const headers: Record<string, string> = token
           ? { Authorization: `Token ${token}` }
           : {};
-  
+
         const response = await fetch(
-          `http://152.67.138.40/api/products/${encodeURIComponent(slug)}/`,
+          `http://localhost:8000/api/products/${slug}/`,
           {
             headers,
           }
         );
-  
+
         const data = await response.json();
         setProduct(data || null);
         console.log("Dane z API:", data);
@@ -37,7 +37,6 @@ const TitleScreen = () => {
       console.error("Błąd pobierania danych:", error);
     }
   };
-  
 
   useEffect(() => {
     fetchData();
@@ -56,10 +55,6 @@ const TitleScreen = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
-
-  const handleRecommendationClick = (item: string) => {
-    console.log(item);
-  };
 
   const images = [
     product.image1,
@@ -89,10 +84,7 @@ const TitleScreen = () => {
         />
       )}
       <Description description={product.description} />
-      <Recomendations
-        recommendations={images}
-        onRecommendationClick={handleRecommendationClick}
-      />
+      {token && <Recomendations id={product.id} />}
       {token && (
         <AddComment product={product.id} onCommentAdded={handleCommentAdded} />
       )}

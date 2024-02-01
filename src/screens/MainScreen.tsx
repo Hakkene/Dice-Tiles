@@ -11,7 +11,7 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchDataNew = async () => {
       try {
-        const url = `http://152.67.138.40/api/products/?page=${currentPageNew}&page_size=5&sort_by=id_desc`;
+        const url = `http://localhost:8000/api/products/?page=${currentPageNew}&page_size=5&sort_by=id_desc`;
         const response = await fetch(url);
         const data = await response.json();
 
@@ -28,7 +28,7 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchDataHot = async () => {
       try {
-        const url = `http://152.67.138.40/api/products/?page=${currentPageHot}&page_size=5&sort_by=upvotes`;
+        const url = `http://localhost:8000/api/products/?page=${currentPageHot}&page_size=5&sort_by=upvotes`;
         const response = await fetch(url);
         const data = await response.json();
 
