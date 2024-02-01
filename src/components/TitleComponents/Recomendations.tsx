@@ -23,13 +23,16 @@ const Recommendations = ({ id }: Props) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch(`http://localhost:8002/recommend/${id}/`, {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: `token ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://www.diceandtiles.xyz/recommend/${id}/`,
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `token ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -70,7 +73,7 @@ const Recommendations = ({ id }: Props) => {
           <li key={recommendation.product_id} className="w-1/5 flex-none">
             <Link to={`/title/${recommendation.product_slug}`}>
               <img
-                src={`http://localhost:8000/api/${recommendation.product_thumbnail}`}
+                src={`http://www.diceandtiles.xyz/api/${recommendation.product_thumbnail}`}
                 alt={recommendation.product_name}
                 className="object-cover w-full h-full bg-slate-400"
               />

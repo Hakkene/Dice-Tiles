@@ -20,7 +20,7 @@ const LogInScreen = () => {
   const handleLogIn = async () => {
     console.log("Logging in with:", username, password);
     try {
-      const response = await fetch("http://localhost:8000/api/login/", {
+      const response = await fetch("http://www.diceandtiles.xyz/api/login/", {
         method: "POST",
         headers: {
           accept: "application/json",

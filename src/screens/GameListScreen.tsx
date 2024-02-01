@@ -9,7 +9,7 @@ const GameListScreen = () => {
 
   const fetchData = async () => {
     try {
-      const url = `http://localhost:8000/api/products/?page=${currentPage}&page_size=10&name=${searchText}`;
+      const url = `http://www.diceandtiles.xyz/api/products/?page=${currentPage}&page_size=10&name=${searchText}`;
       const response = await fetch(url);
       const data = await response.json();
 

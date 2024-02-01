@@ -22,18 +22,21 @@ const SignUpScreen = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/register/", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "http://www.diceandtiles.xyz/api/register/",
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            username: username,
+            password: password,
+          }),
+        }
+      );
 
       console.log("Response:", response);
 
