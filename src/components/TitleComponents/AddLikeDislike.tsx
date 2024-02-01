@@ -23,7 +23,7 @@ const AddLikeDislike = ({
   const checkIfInCollection = async (idToCheck: number) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/ownedproduct/${idToCheck}/`,
+        `http://www.diceandtiles.xyz/api/ownedproduct/${idToCheck}/`,
         {
           method: "GET",
           headers: {
@@ -50,17 +50,20 @@ const AddLikeDislike = ({
 
   const handleAdd = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/ownedproduct/`, {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `token ${token}`,
-        },
-        body: JSON.stringify({
-          product: id,
-        }),
-      });
+      const response = await fetch(
+        `http://www.diceandtiles.xyz/api/ownedproduct/`,
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `token ${token}`,
+          },
+          body: JSON.stringify({
+            product: id,
+          }),
+        }
+      );
 
       if (response.ok) {
         console.log("Product added successfully");
@@ -79,7 +82,7 @@ const AddLikeDislike = ({
     try {
       const newVote = isLiked === vote ? 0 : vote;
 
-      const response = await fetch(`http://localhost:8000/api/vote/`, {
+      const response = await fetch(`http://www.diceandtiles.xyz/api/vote/`, {
         method: "POST",
         headers: {
           accept: "application/json",

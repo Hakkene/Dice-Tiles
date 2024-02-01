@@ -23,7 +23,7 @@ const TitleScreen = () => {
           : {};
 
         const response = await fetch(
-          `http://localhost:8000/api/products/${slug}/`,
+          `http://www.diceandtiles.xyz/api/products/${slug}/`,
           {
             headers,
           }

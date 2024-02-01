@@ -19,7 +19,7 @@ const AddComment: React.FC<AddCommentProps> = ({ product, onCommentAdded }) => {
   const handleAddComment = async () => {
     try {
       console.log("Adding comment...");
-      const response = await fetch("http://localhost:8000/api/comment/", {
+      const response = await fetch("http://www.diceandtiles.xyz/api/comment/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

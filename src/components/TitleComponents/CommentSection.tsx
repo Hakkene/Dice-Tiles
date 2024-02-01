@@ -18,7 +18,9 @@ const CommentSection = ({ product }: CommentProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/comment/`);
+        const response = await fetch(
+          `http://www.diceandtiles.xyz/api/comment/`
+        );
         const data = await response.json();
 
         console.log("Received data from server:", data);
